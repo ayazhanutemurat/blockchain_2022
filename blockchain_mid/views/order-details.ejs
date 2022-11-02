@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= siteName %> - <%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link  href="/static/main.css" rel="stylesheet" type="text/css"> -->
+    <style>
+        body {
+        height: auto;
+        }
+
+        html {
+        scroll-behavior: smooth;
+        }
+
+        .main-receipt-page{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 9vh 0;
+        font-family: 'Roboto', sans-serif;
+        }
+        .receipt-card {
+            font-size: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+        align-items: center;  
+            background-color: #FFFFFF;
+            margin: 0 36px auto 36px;
+            position: relative;
+            box-shadow: 0 0 1px rgba(0,0,0,.04), 0 2px 6px rgba(0,0,0,.04), 0 10px 20px rgba(0,0,0,.04);
+            padding: 20px 20px 20px 20px;
+        max-width: fit-content;
+        border-radius: 30px;
+        }
+        .receipt-card >div{
+        width: 100%;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        }
+        .success-icon{
+        max-width: 20%;
+        margin-top: -12%;
+        }
+        .success-transaction-div{
+        font-size: 70%;
+        width: fit-content;
+        color: #27AE60;
+        }
+        .amount{
+        font-size: 400%;
+        }
+        .currency{
+        font-size: 300%;
+        }
+        .merchant-div{
+        font-size: 100%;
+        font-weight: 500;
+        max-width: fit-content;
+        color: #606663;
+        }
+        .margin-margin{
+            margin-bottom: 3%;
+        }
+        .merchant{
+        text-align: center;
+        }
+        #transaction_details{
+        margin-bottom: 5%;
+        display: block;
+        }
+        .data-div{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2%;
+        }
+        .static{
+        font-size: 80%;
+        color: #606663;
+        flex-basis: 50%;
+        }
+        .data{
+        font-size: 80%;
+        flex-basis: 50%;
+        }
+        #status-label{
+        /* width: 500px; */
+        /* word-wrap: break-word; */
+        color: #46d18c;
+        }
+        .comment > label{
+        max-width: 80%;
+        }
+        #div-img-bcckz{
+        width: 30%;
+        }
+        .img-bcckz{
+        width: 100%;
+        }
+
+        .btn-download{
+        margin-top: 0px;
+        padding-top: 10px;
+        background: #27AE60;
+        border: 1px solid #27AE60;
+        border-radius: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 21px;
+        text-align: center;
+        color: #FFFFFF;
+        width: 120px;
+        outline: none;
+        padding: 10px 10px;
+        transition: .3s;
+        cursor: pointer;
+        }
+    </style>
+</head>
+
+<body style="background-color:  #F8F8FF ">
+    <div class="main-receipt-page">
+        <div class="receipt-card">
+                <div class="success-transaction-div">
+                    <span class="success-transaction">Thank you, <%= data.client.name %>!</span>
+                </div>
+                <div class="success-transaction-div">
+                    <span class="success-transaction">Order Details</span>
+                </div>
+                <div class="currency-amount-div">
+                    <span class="currency">₸</span>
+                    <span class="amount"><%= data.sum %></span>
+                </div>
+                <div class="merchant-div">
+                    <span class="merchant"><%= data.coffee %></span>
+                </div>
+                <div class="merchant-div">
+                    <span class="merchant"><%= data.packs %> packs</span>
+                </div>
+                <div class="merchant-div margin-margin">
+                    <span class="merchant"><%= data.weight %> kg</span>
+                </div>
+                <div class="transaction_details" id="transaction_details" >
+                    <div class="card-div data-div">
+                        <div class="static"><span>Order ID:</span></div>
+                        <div class="card data"><span ><%= data.id %></span></div>
+                    </div>
+                    <div class="date-div data-div">
+                        <div class="static"><span>Order Date:</span></div>
+                        <div class="date data"><span><%= data.createdAt %></span></div>
+                    </div>
+                    <div class="order-div data-div">
+                        <div class="static"><span>Delivery Date:</span></div>
+                        <div class="order data"><span ><%= data.deliveryDate %></span></div>
+                    </div>
+                    
+                    <div class="comment-div data-div">
+                        <div class="static"><span>Delivery Address:</span></div>
+                        <div class="comment data"><label id="comment"><%= data.client.address %></label></div>
+                    </div>
+
+                    <div class="comment-div data-div">
+                        <div class="static"><span>Order Status:</span></div>
+                        <div class="comment data"><label id="status-label"><%= data.status %></label></div>
+                    </div>
+                </div> 
+        </div>
+    </div>
+    <center>
+        <div class="btn-download" id="btn-status">Check status</div>
+    </center>
+    <script>
+        document.getElementById("btn-status").addEventListener("click", function(){
+        const statuses = ["On Picking", "On The Way", "Delivered"];
+        const random = Math.floor(Math.random() * statuses.length);
+        document.getElementById('status-label').innerHTML = statuses[random];
+    });
+    </script>
+</body>
+
+</html>
